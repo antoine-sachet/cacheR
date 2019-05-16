@@ -101,8 +101,8 @@ write_cache_recursive.list <- function(x, path, ...) {
   if (len > 0) {
     max_width <- floor(log10(len)) + 1;
     elem_names <- stringi::stri_pad_left(1:len, width = max_width, pad = "0")
-    for (i in elem_names) {
-      write_cache_recursive(x[[i]], file.path(path, i), ...)
+    for (i in 1:len) {
+      write_cache_recursive(x[[i]], file.path(path, elem_names[i]), ...)
     }
   }
 }
