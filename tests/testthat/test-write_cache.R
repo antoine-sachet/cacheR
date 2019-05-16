@@ -6,10 +6,6 @@ check_dir_contains <- function(path, name, expected_content) {
     expected_content)
 }
 
-inspect_cache <- function(path) {
-  list.files(path, recursive = TRUE, all.files = TRUE)
-}
-
 check_objs <- function(objs, expected_content) {
   path <- tempdir()
   teardown(unlink(path))

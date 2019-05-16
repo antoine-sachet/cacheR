@@ -9,3 +9,9 @@ create_if_needed <- function(dir) {
   }
   status
 }
+
+#' Show all files under the path
+#' @export
+inspect_cache <- function(path) {
+  list.files(path, recursive = TRUE, all.files = TRUE)
+}
