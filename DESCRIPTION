@@ -17,4 +17,9 @@ Imports:
     tibble,
     purrr,
     readr,
-    rlang
+    rlang,
+    glue,
+    yaml,
+    stringi
+Suggests: 
+    testthat
