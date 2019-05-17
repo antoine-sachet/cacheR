@@ -6,24 +6,28 @@ check_inverse <- function(obj, path, name = "obj") {
   testthat::expect_equal(obj, res)
 }
 
-test_that("Data.frame reader", {
+check_all_inverses <- function(objs) {
   path <- tempdir()
   teardown(unlink(path))
+  purrr::imap(objs, function(obj, name) {
+    check_inverse(obj, path, name)
+  })
+}
 
-  check_inverse(mtcars, path)
+test_that("Default reader", {
+  objs <- list(
+    obj1 = 1:10,
+    obj2 = lm(mpg ~gear, mtcars)
+  )
+  check_all_inverses(objs)
 })
 
 
 test_that("List reader", {
-  path <- tempdir()
-  teardown(unlink(path))
-
   objs <- list(
     obj1 = list(1, 2, 3),
     obj2 = list(a = letters, b = 1),
     obj3 = list()
   )
-  purrr::imap(objs, function(obj, name) {
-    check_inverse(obj, path, name)
-  })
+  check_all_inverses(objs)
 })

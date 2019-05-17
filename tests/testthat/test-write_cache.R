@@ -18,7 +18,7 @@ check_objs <- function(objs, expected_content) {
 test_that("Default method", {
   expected_content <- c(".cache_meta", "object")
   objs <- list(
-    mtcars = mtcars,
+    mtcars = lm(mpg ~ gear, data = mtcars),
     letters = letters,
     num = 1:10,
     a = 1
