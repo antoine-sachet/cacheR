@@ -79,3 +79,16 @@ write_cache_recursive.list <- function(x, path, ...) {
   }
 }
 
+#' @describeIn write_cache_recursive Data.frame method (named list with attributes)
+write_cache_recursive.data.frame <- function(x, path, ...) {
+  meta <- list(
+    cache_type = "data.frame",
+    names = names(x),
+    class = class(x)
+  )
+  set_cache_meta(path, meta)
+  write_attributes(x, path, exclude = c("names", "class"))
+  x <- rlang::as_list(x)
+  write_cache_recursive(x, file.path(path, "data"))
+
+}
