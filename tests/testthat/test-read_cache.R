@@ -44,3 +44,16 @@ test_that("Data.frame reader", {
   )
   check_all_inverses(objs)
 })
+
+test_that("Nested lists", {
+  objs <- list(
+    obj1 = list(mtcars, list(iris)),
+    obj2 = list(list(), list()),
+    obj3 = list(a = list(), list(c = list(), list())),
+    obj4 = list(a = list(), letters = letters, list(c = list(1:10), list(), iris)),
+    obj5 = list(model = lm(mpg ~ gear, data = mtcars), data = mtcars)
+  )
+  objs$all <- rlang::list2(!!! objs)
+  check_all_inverses(objs)
+})
+
