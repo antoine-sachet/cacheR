@@ -1,8 +1,9 @@
 #' @title Plaintext reader and writer factories
 #' @rdname plaintext_factory
 #' @param type cache_type to write
-#' @param cast cast function (from character)
-plaintext_writer_factory <- function(type, cast = function(x) x) {
+#' @param cast Optional cast function when reading or writing.
+plaintext_writer_factory <- function(type, cast = function(x) x,
+                                     cast_args = list()) {
   function(x, path, ...) {
     meta <- list(
       cache_type = type,
@@ -11,7 +12,8 @@ plaintext_writer_factory <- function(type, cast = function(x) x) {
     set_cache_meta(path, meta)
     # Saving names in attributes rather than meta in case it is long
     write_attributes(x, path, exclude = "class")
-    readr::write_lines(cast(x), path = file.path(path, "object"))
+    x_cast <- rlang::exec(cast, x, !!! cast_args)
+    readr::write_lines(x_cast, path = file.path(path, "object"))
   }
 }
 
@@ -25,4 +27,18 @@ plaintext_reader_factory <- function(cast = function(x) x) {
     class(out) <- meta$class
     out
   }
+}
+
+#' Logical / Integer conversion
+#'
+#' (TRUE, FALSE, NA) <-> (1, 0, NA)
+#'
+#' @param vec Logical or integer vector to convert
+logical2int <- function(vec) {
+  if_else(vec, 1L, 0L)
+}
+
+#' @describeIn logical2int Integer (0, 1, NA) to Logical (FALSE, TRUE, NA)
+int2logical <- function(vec) {
+  c(FALSE, TRUE)[vec + 1L]
 }

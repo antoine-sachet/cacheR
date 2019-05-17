@@ -6,6 +6,9 @@
 \alias{read_cache.data.frame}
 \alias{read_cache.character}
 \alias{read_cache.factor}
+\alias{read_cache.numeric}
+\alias{read_cache.integer}
+\alias{read_cache.logical}
 \title{Internal read_cache functions.}
 \usage{
 read_cache.rds.gz(path)
@@ -17,6 +20,12 @@ read_cache.data.frame(path)
 read_cache.character(path)
 
 read_cache.factor(path)
+
+read_cache.numeric(path)
+
+read_cache.integer(path)
+
+read_cache.logical(path)
 }
 \arguments{
 \item{path}{Path (including object name)}

@@ -53,10 +53,21 @@ read_cache.data.frame <- function(path) {
 
 #' @rdname read_cache_functions
 read_cache.character <-
-  plaintext_reader_factory(cast = as.character)
+  plaintext_reader_factory(cast = readr::parse_character)
 
 #' @rdname read_cache_functions
 read_cache.factor <-
   plaintext_reader_factory(cast = readr::parse_integer)
 
+#' @rdname read_cache_functions
+read_cache.numeric <-
+  plaintext_reader_factory(cast = readr::parse_double)
+
+#' @rdname read_cache_functions
+read_cache.integer <-
+  plaintext_reader_factory(cast = readr::parse_integer)
+
+#' @rdname read_cache_functions
+read_cache.logical <-
+  plaintext_reader_factory(cast = purrr::compose(int2logical, readr::parse_integer))
 

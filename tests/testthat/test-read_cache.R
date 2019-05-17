@@ -61,21 +61,44 @@ test_that("Nested lists", {
   check_all_inverses(objs)
 })
 
-test_that("Characters, factors, numeric, integer", {
+test_that("Characters", {
   objs <- list(
     list(letters), # character
     list(purrr::set_names(letters, LETTERS)), # named character
+    character(0),
+    c(hello = "world", a = NA_character_),
+    NA_character_
+  )
+  check_all_inverses(objs)
+})
+
+
+test_that("Factors", {
+  objs <- list(
     list(factor(letters)), # factor
     list(factor(letters, levels = head(letters))), # factor with NAs
-    list(1 + 1:10), # numeric
-    list(rnorm(n = 100)), # numeric,
-    list(purrr::set_names(runif(n = 26), letters)), # named numeric
-    list(1:10), # integer
-    character(0),
-    numeric(0),
-    integer(0),
     factor(character(0))
   )
   check_all_inverses(objs)
 })
 
+
+test_that("Integers", {
+  objs <- list(
+    list(1:10),
+    integer(0),
+    NA_integer_,
+    c(a = -1, b = NA_integer_)
+  )
+  check_all_inverses(objs)
+})
+
+test_that("Logicals", {
+  objs <- list(
+    c(TRUE, FALSE),
+    c(TRUE, FALSE, NA),
+    c(a = TRUE, b = FALSE, c = NA),
+    logical(0)
+  )
+  check_all_inverses(objs)
+})

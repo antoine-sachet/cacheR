@@ -96,9 +96,20 @@ write_cache_recursive.data.frame <- function(x, path, ...) {
 
 #' @describeIn write_cache_recursive Character method (plaintext)
 write_cache_recursive.character <-
-  plaintext_writer_factory(type = "character", cast = function(x) x)
+  plaintext_writer_factory(type = "character")
 
 #' @describeIn write_cache_recursive Factor method (plaintext)
 write_cache_recursive.factor <-
   plaintext_writer_factory(type = "factor", cast = as.integer)
 
+#' @describeIn write_cache_recursive Numeric method (plaintext)
+write_cache_recursive.numeric <-
+  plaintext_writer_factory(type = "numeric")
+
+#' @describeIn write_cache_recursive Numeric method (plaintext)
+write_cache_recursive.integer <-
+  plaintext_writer_factory(type = "integer")
+
+#' @describeIn write_cache_recursive Numeric method (plaintext)
+write_cache_recursive.logical <-
+  plaintext_writer_factory(type = "integer", cast = logical2int)

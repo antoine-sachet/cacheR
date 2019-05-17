@@ -7,6 +7,9 @@
 \alias{write_cache_recursive.data.frame}
 \alias{write_cache_recursive.character}
 \alias{write_cache_recursive.factor}
+\alias{write_cache_recursive.numeric}
+\alias{write_cache_recursive.integer}
+\alias{write_cache_recursive.logical}
 \title{Generic for write_cache_recursive}
 \usage{
 write_cache_recursive(x, path, ...)
@@ -20,6 +23,12 @@ write_cache_recursive(x, path, ...)
 \method{write_cache_recursive}{character}(x, path, ...)
 
 \method{write_cache_recursive}{factor}(x, path, ...)
+
+\method{write_cache_recursive}{numeric}(x, path, ...)
+
+\method{write_cache_recursive}{integer}(x, path, ...)
+
+\method{write_cache_recursive}{logical}(x, path, ...)
 }
 \arguments{
 \item{x}{An object to write}
@@ -42,5 +51,11 @@ Internal workhorse for write_cache.
 \item \code{character}: Character method (plaintext)
 
 \item \code{factor}: Factor method (plaintext)
+
+\item \code{numeric}: Numeric method (plaintext)
+
+\item \code{integer}: Numeric method (plaintext)
+
+\item \code{logical}: Numeric method (plaintext)
 }}
 
