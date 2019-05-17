@@ -8,7 +8,7 @@ Authors@R:
            email = "antoine@soundout.com")
 Description: I/O functions to read/write named lists to/from disk, 
   using cvs-friendly plaintext when possible.
-License: file LICENSE
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
