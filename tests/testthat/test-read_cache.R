@@ -31,3 +31,16 @@ test_that("List reader", {
   )
   check_all_inverses(objs)
 })
+
+test_that("Data.frame reader", {
+  objs <- list(
+    obj1 = mtcars,
+    obj2 = iris,
+    obj3 = tibble::as_tibble(iris),
+    obj4 = data.frame(),
+    obj5 = data.frame(a = character(0)),
+    obj6 = tibble::tibble(),
+    obj7 = dplyr::group_by(iris, Species)
+  )
+  check_all_inverses(objs)
+})

@@ -37,3 +37,13 @@ read_cache.list <- function(path) {
   names(out) <- meta$names
   out
 }
+
+#' @rdname read_cache_functions
+read_cache.data.frame <- function(path) {
+  out <- read_cache.list(file.path(path, "data"))
+  meta <- get_cache_meta(path)
+  attributes(out) <- read_attributes(path)
+  names(out) <- meta$names
+  class(out) <- meta$class
+  out
+}

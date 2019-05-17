@@ -3,11 +3,14 @@
 \name{read_cache.rds.gz}
 \alias{read_cache.rds.gz}
 \alias{read_cache.list}
+\alias{read_cache.data.frame}
 \title{Internal read_cache functions.}
 \usage{
 read_cache.rds.gz(path)
 
 read_cache.list(path)
+
+read_cache.data.frame(path)
 }
 \arguments{
 \item{path}{Path (including object name)}
