@@ -9,6 +9,9 @@ check_inverse <- function(obj, path, name = "obj") {
 check_all_inverses <- function(objs) {
   path <- tempdir()
   teardown(unlink(path))
+  if (is.null(names(objs))) {
+    names(objs) <- paste("obj", 1:length(objs))
+  }
   purrr::imap(objs, function(obj, name) {
     check_inverse(obj, path, name)
   })
@@ -40,7 +43,8 @@ test_that("Data.frame reader", {
     obj4 = data.frame(),
     obj5 = data.frame(a = character(0)),
     obj6 = tibble::tibble(),
-    obj7 = dplyr::group_by(iris, Species)
+    obj7 = dplyr::group_by(iris, Species),
+    obj8 = dplyr::mutate(iris, Species = factor(Species))
   )
   check_all_inverses(objs)
 })
@@ -54,6 +58,23 @@ test_that("Nested lists", {
     obj5 = list(model = lm(mpg ~ gear, data = mtcars), data = mtcars)
   )
   objs$all <- rlang::list2(!!! objs)
+  check_all_inverses(objs)
+})
+
+test_that("Characters, factors, numeric, integer", {
+  objs <- list(
+    list(letters), # character
+    list(purrr::set_names(letters, LETTERS)), # named character
+    list(factor(letters)), # factor
+    list(factor(letters, levels = head(letters))), # factor with NAs
+    list(1 + 1:10), # numeric
+    list(rnorm(n = 100)), # numeric
+    list(1:10), # integer
+    character(0),
+    numeric(0),
+    integer(0),
+    factor(character(0))
+  )
   check_all_inverses(objs)
 })
 
