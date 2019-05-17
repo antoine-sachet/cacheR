@@ -3,7 +3,7 @@
 #' @param path Directory
 read_attributes <- function(path) {
   attr_path <- file.path(path, ".attributes")
-  if (exists(attr_path)) {
+  if (file.exists(attr_path)) {
     out <- read_cache(attr_path)
   } else {
     out <- NULL
