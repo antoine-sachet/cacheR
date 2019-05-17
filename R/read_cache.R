@@ -1,14 +1,4 @@
-get_cache_meta <- function(path) {
-  yaml::read_yaml(file.path(path, ".cache_meta"))
-}
-
-get_cache_type <- function(path) {
-  meta <- get_cache_meta(path)
-  return(meta$cache_type)
-}
-
-
-#' Read data previsouly saved with write_cache
+#' Read data previously saved with write_cache
 #'
 #' @param path Path (including object name)
 #'
@@ -22,21 +12,16 @@ read_cache <- function(path) {
   reader(path)
 }
 
-#' Read attributes, if any, at the path.
-read_attributes <- function(path) {
-  attr_path <- file.path(path, ".attributes")
-  if (exists(attr_path)) {
-    out <- read_cache(attr_path)
-  } else {
-    out <- NULL
-  }
-  return(out)
-}
-
+#' @rdname read_cache_functions
+#' @title Internal read_cache functions.
+#' @description This functions are called by `read_cache` when appropriate.
+#' @param path Path (including object name)
+#' @seealso read_cache
 read_cache.rds.gz <- function(path) {
   readr::read_rds(file.path(path, "object"))
 }
 
+#' @rdname read_cache_functions
 read_cache.list <- function(path) {
   meta <- get_cache_meta(path)
 

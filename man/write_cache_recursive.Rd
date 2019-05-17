@@ -20,12 +20,12 @@ write_cache_recursive(x, path, ...)
 \item{...}{Pasedd to write functions}
 }
 \description{
-Internal workhorse.
+Internal workhorse for write_cache.
 }
 \section{Methods (by class)}{
 \itemize{
-\item \code{default}: Default method
+\item \code{default}: Default method (save as rds.gz)
 
-\item \code{list}: List method
+\item \code{list}: List method (save as subdirectories)
 }}
 

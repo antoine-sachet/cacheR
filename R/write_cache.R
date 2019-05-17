@@ -41,23 +41,8 @@ write_cache <- function(x, path, name = NULL, overwrite = FALSE, ...) {
   write_cache_recursive(eval_tidy(x), object_root, ...)
 }
 
-#' Write an appropriate .cache_meta to a directory
-#'
-#' @param path Directory
-#' @param meta Metadata object (named list)
-set_cache_meta <- function(path, meta) {
-  yaml::write_yaml(meta, file.path(path, ".cache_meta"))
-}
-
-#' @describeIn set_cache_meta Shortcut to set cache_type
-#' @param type Cache type (set as `cache_type` field in `.cache_meta`)
-set_cache_type <- function(path, type) {
-  set_cache_meta(path, list(cache_type = type))
-}
-
-#' Generic for write_cache_recursive
-#'
-#' Internal workhorse.
+#' @title Generic for write_cache_recursive
+#' @description Internal workhorse for write_cache.
 #'
 #' @param x An object to write
 #' @param path A path to write it to
@@ -68,26 +53,13 @@ write_cache_recursive <- function(x, path, ...) {
 }
 
 
-#' @describeIn write_cache_recursive Default method
+#' @describeIn write_cache_recursive Default method (save as rds.gz)
 write_cache_recursive.default <- function(x, path, ...) {
   set_cache_type(path, "rds.gz")
   readr::write_rds(x, file.path(path, "object"), compress = "gz")
 }
 
-#' @describeIn Helper fun to save attributes
-write_attributes <- function(x, path, exclude_names = TRUE) {
-  att <- attributes(x)
-  if (!is.null(att)) {
-    if (exclude_names) {
-      att <- att[names(att) != "names"]
-    }
-    if (length(att) > 0) {
-      write_cache_recursive(att, file.path(path, ".attributes"))
-    }
-  }
-}
-
-#' @describeIn write_cache_recursive List method
+#' @describeIn write_cache_recursive List method (save as subdirectories)
 #' @importFrom stringi stri_pad_left
 write_cache_recursive.list <- function(x, path, ...) {
   meta <- list(
@@ -106,3 +78,4 @@ write_cache_recursive.list <- function(x, path, ...) {
     }
   }
 }
+

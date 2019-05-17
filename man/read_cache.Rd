@@ -2,7 +2,7 @@
 % Please edit documentation in R/read_cache.R
 \name{read_cache}
 \alias{read_cache}
-\title{Read data previsouly saved with write_cache}
+\title{Read data previously saved with write_cache}
 \usage{
 read_cache(path)
 }
@@ -10,5 +10,5 @@ read_cache(path)
 \item{path}{Path (including object name)}
 }
 \description{
-Read data previsouly saved with write_cache
+Read data previously saved with write_cache
 }
