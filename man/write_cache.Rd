@@ -2,12 +2,12 @@
 % Please edit documentation in R/write_cache.R
 \name{write_cache}
 \alias{write_cache}
-\title{Write a named list to cache}
+\title{Write an object to cache}
 \usage{
 write_cache(x, path, name = NULL, overwrite = FALSE, ...)
 }
 \arguments{
-\item{x}{Object to save.}
+\item{x}{Object to save. Typically a named list but can be anything.}
 
 \item{path}{Cache directory. A subdirectory will be created.}
 
@@ -19,5 +19,8 @@ the expression passed as `x`.}
 \item{...}{Passed to write functions.}
 }
 \description{
-Write a named list to cache
+Write an object to cache
+}
+\seealso{
+\link{read_cache}
 }

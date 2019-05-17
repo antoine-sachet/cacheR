@@ -12,3 +12,6 @@ read_cache(path)
 \description{
 Read data previously saved with write_cache
 }
+\seealso{
+\link{write_cache}
+}

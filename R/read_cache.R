@@ -1,7 +1,7 @@
 #' Read data previously saved with write_cache
 #'
 #' @param path Path (including object name)
-#'
+#' @seealso \link{write_cache}
 #' @export
 read_cache <- function(path) {
   if (!file.exists(file.path(path, ".cache_meta"))) {

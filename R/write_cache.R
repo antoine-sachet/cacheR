@@ -1,12 +1,13 @@
-#' Write a named list to cache
+#' Write an object to cache
 #'
-#' @param x Object to save.
+#' @param x Object to save. Typically a named list but can be anything.
 #' @param path Cache directory. A subdirectory will be created.
 #' @param name Optional: name of the directory to create. Default = NULL to use
 #'   the expression passed as `x`.
 #' @param overwrite Set to TRUE to overwrite an existing cache or directory.
 #' @param ... Passed to write functions.
 #'
+#' @seealso \link{read_cache}
 #' @export
 #'
 write_cache <- function(x, path, name = NULL, overwrite = FALSE, ...) {

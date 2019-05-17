@@ -9,6 +9,27 @@
 I/O functions to read/write named lists to/from disk, 
   using cvs-friendly plaintext when possible.
 }
+\examples{
+library("cacheR")
+
+my_data <-
+  list(data = mtcars,
+       model = lm(mpg ~ gear, data = mtcars),
+       details = list(date = "2030-01-01",
+                      version = "1.2"))
+
+# Note the directory must exist
+write_cache(my_data, "./cache")
+
+cache <- read_cache("./cache/my_data")
+
+all.equal(my_data, cache)
+# TRUE, of course!
+
+}
+\seealso{
+\link{write_cache} \link{read_cache}
+}
 \author{
 \strong{Maintainer}: Antoine Sachet \email{antoine@soundout.com}
 
