@@ -1,11 +1,14 @@
 #' Read data previously saved with write_cache
 #'
-#' @param path Path (including object name)
+#' @param name Name of the object to read
+#' @param path Path to the cache directory
+#'
 #' @seealso \link{write_cache}
 #' @export
-read_cache <- function(path) {
+read_cache <- function(name, path) {
+  path <- file.path(path, name)
   if (!file.exists(file.path(path, ".cache_meta"))) {
-    stop("Could not find .cache_meta in {path}. Is this the correct path?")
+    stop(glue("Could not find .cache_meta in {path}. Is this the correct path?"))
   }
   type <- get_cache_type(path)
   reader <- get(paste0("read_cache.", type), mode = "function")
@@ -26,13 +29,13 @@ read_cache.list <- function(path) {
   meta <- get_cache_meta(path)
 
   # Identifying all elements (in numbered directories)
-  elems <- list.dirs(path, recursive = FALSE)
+  elems <- list.dirs(path, recursive = FALSE, full.names = FALSE)
   if (is.unsorted(elems)) {
     elems <- sort(elems)
   }
 
   out <- purrr::map(elems,
-             read_cache)
+             read_cache, path = path)
   attributes(out) <- read_attributes(path)
   names(out) <- meta$names
   out
@@ -40,7 +43,7 @@ read_cache.list <- function(path) {
 
 #' @rdname read_cache_functions
 read_cache.data.frame <- function(path) {
-  out <- read_cache.list(file.path(path, "data"))
+  out <- read_cache("data", path = path)
   meta <- get_cache_meta(path)
   attributes(out) <- read_attributes(path)
   names(out) <- meta$names

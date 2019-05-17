@@ -2,7 +2,7 @@ context("test-read_cache")
 
 check_inverse <- function(obj, path, name = "obj") {
   write_cache(obj, path, name = name, overwrite = TRUE)
-  res <- read_cache(file.path(path, name))
+  res <- read_cache(name, path)
   testthat::expect_equal(obj, res)
 }
 

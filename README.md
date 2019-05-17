@@ -33,9 +33,9 @@ my_data <-
                       version = "1.2"))
                       
 # Note the directory must exist
-write_cache(my_data, "./cache")
+write_cache(my_data, path = "./cache")
 
-cache <- read_cache("./cache/my_data")
+cache <- read_cache("my_data", path = "./cache")
 
 all.equal(my_data, cache)
 # TRUE, of course!

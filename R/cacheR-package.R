@@ -21,7 +21,7 @@
 #'
 #' write_cache(my_data, path)
 #'
-#' cache <- read_cache(file.path(path, "my_data"))
+#' cache <- read_cache("my_data", path)
 #'
 #' all.equal(my_data, cache)
 #' # TRUE, of course!

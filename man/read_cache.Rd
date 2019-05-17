@@ -4,10 +4,12 @@
 \alias{read_cache}
 \title{Read data previously saved with write_cache}
 \usage{
-read_cache(path)
+read_cache(name, path)
 }
 \arguments{
-\item{path}{Path (including object name)}
+\item{name}{Name of the object to read}
+
+\item{path}{Path to the cache directory}
 }
 \description{
 Read data previously saved with write_cache
