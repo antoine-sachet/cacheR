@@ -50,3 +50,13 @@ read_cache.data.frame <- function(path) {
   class(out) <- meta$class
   out
 }
+
+#' @rdname read_cache_functions
+read_cache.character <- function(path) {
+  out <- readr::read_lines(file.path(path, "object"))
+  meta <- get_cache_meta(path)
+  attributes(out) <- read_attributes(path)
+  class(out) <- meta$class
+  out
+}
+

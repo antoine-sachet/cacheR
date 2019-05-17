@@ -4,6 +4,7 @@
 \alias{read_cache.rds.gz}
 \alias{read_cache.list}
 \alias{read_cache.data.frame}
+\alias{read_cache.character}
 \title{Internal read_cache functions.}
 \usage{
 read_cache.rds.gz(path)
@@ -11,6 +12,8 @@ read_cache.rds.gz(path)
 read_cache.list(path)
 
 read_cache.data.frame(path)
+
+read_cache.character(path)
 }
 \arguments{
 \item{path}{Path (including object name)}

@@ -91,5 +91,17 @@ write_cache_recursive.data.frame <- function(x, path, ...) {
   write_attributes(x, path, exclude = c("names", "class"))
   x <- rlang::as_list(x)
   write_cache_recursive(x, file.path(path, "data"))
-
 }
+
+#' @describeIn write_cache_recursive Character method (plaintext)
+write_cache_recursive.character <- function(x, path, ...) {
+  meta <- list(
+    cache_type = "character",
+    class = class(x)
+  )
+  set_cache_meta(path, meta)
+  # Saving names in attributes rather than meta in case it is long
+  write_attributes(x, path, exclude = "class")
+  readr::write_lines(x, path = file.path(path, "object"))
+}
+
