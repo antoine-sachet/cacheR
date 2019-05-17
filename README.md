@@ -4,12 +4,15 @@ The goal of cacheR is to provide I/O functions to save data in named lists to di
 
 When I deploy shiny apps, I typically need to deploy some data along with it.
 
-Until now, I have used:
-- an external DB: this can be slow and requires somehow passing or storing sensitive credentials to the app.
-- tabular plaintext formats: this works fine for data.frame objects, but requires robust readers to ensure data quality. When the data is already in a DB, it is a waste of time to export it to csv and write readers! It is also not adapted for non-tabular data.
-- RDS format to save any kind of objects! Well, yes! For a one-off data dump, you should use RDS and in fact the RDS format is used extensively by cacheR. To git however, this is a binary file. If you need to regularly update your data, the git repository can grow very quickly!
+The alternatives I have used are:
+- an external DB: this can be slow and requires somehow passing or storing sensitive credentials in the app.
+- tabular plaintext formats such as CSV: this works fine for data.frame objects, but requires robust readers to ensure data integrity. When the data is already in a DB, it is a waste of time to export it to csv and write readers! It is also not adapted for non-tabular data or complex (e.g. nested) tabular data.
+- RDS format to save any kind of objects. Well, yes! For a one-off data dump, you totally could use RDS and in fact the RDS format is used extensively within `cacheR`. To git however, this is a binary file. If you need to regularly update your data, the git repository can grow very quickly! Using plaintext when possible leverages the delta power of git.
 
-`cacheR` saves any list in a directory arborescence whose nodes are either RDS or plaintext files. All attributes are preserved, so you get back exactly what you saved.
+
+`cacheR` is a compromise: it saves data in a directory arborescence whose nodes are either RDS or plaintext files. Lists are broken down in directories/subdirectories. Atomic vectors (character, numeric, factor, logical, integer) are stored in plaintext. Other data types are stored in RDS files.
+
+Data.frames are treated as a special case of lists. Columns can be stored in plaintext, in RDS or in subdirectories, depending on their types. This means hybrid tibbles with nested list, nested data.frames and any other non-standard column types work just fine! All attributes are preserved, so you get back exactly what you saved, including groups, row names if any, etc. 
 
 ## Installation
 
@@ -40,4 +43,3 @@ cache <- read_cache("my_data", path = "./cache")
 all.equal(my_data, cache)
 # TRUE, of course!
 ```
-
