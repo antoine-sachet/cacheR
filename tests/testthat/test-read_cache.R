@@ -68,7 +68,8 @@ test_that("Characters, factors, numeric, integer", {
     list(factor(letters)), # factor
     list(factor(letters, levels = head(letters))), # factor with NAs
     list(1 + 1:10), # numeric
-    list(rnorm(n = 100)), # numeric
+    list(rnorm(n = 100)), # numeric,
+    list(purrr::set_names(runif(n = 26), letters)), # named numeric
     list(1:10), # integer
     character(0),
     numeric(0),

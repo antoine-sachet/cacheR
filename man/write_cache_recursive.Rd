@@ -6,6 +6,7 @@
 \alias{write_cache_recursive.list}
 \alias{write_cache_recursive.data.frame}
 \alias{write_cache_recursive.character}
+\alias{write_cache_recursive.factor}
 \title{Generic for write_cache_recursive}
 \usage{
 write_cache_recursive(x, path, ...)
@@ -17,6 +18,8 @@ write_cache_recursive(x, path, ...)
 \method{write_cache_recursive}{data.frame}(x, path, ...)
 
 \method{write_cache_recursive}{character}(x, path, ...)
+
+\method{write_cache_recursive}{factor}(x, path, ...)
 }
 \arguments{
 \item{x}{An object to write}
@@ -37,5 +40,7 @@ Internal workhorse for write_cache.
 \item \code{data.frame}: Data.frame method (named list with attributes)
 
 \item \code{character}: Character method (plaintext)
+
+\item \code{factor}: Factor method (plaintext)
 }}
 

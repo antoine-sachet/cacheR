@@ -35,7 +35,7 @@ read_cache.list <- function(path) {
   }
 
   out <- purrr::map(elems,
-             read_cache, path = path)
+                    read_cache, path = path)
   attributes(out) <- read_attributes(path)
   names(out) <- meta$names
   out
@@ -52,11 +52,11 @@ read_cache.data.frame <- function(path) {
 }
 
 #' @rdname read_cache_functions
-read_cache.character <- function(path) {
-  out <- readr::read_lines(file.path(path, "object"))
-  meta <- get_cache_meta(path)
-  attributes(out) <- read_attributes(path)
-  class(out) <- meta$class
-  out
-}
+read_cache.character <-
+  plaintext_reader_factory(cast = as.character)
+
+#' @rdname read_cache_functions
+read_cache.factor <-
+  plaintext_reader_factory(cast = readr::parse_integer)
+
 
