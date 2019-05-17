@@ -16,11 +16,11 @@ set_cache_meta(path, meta)
 set_cache_type(path, type)
 }
 \arguments{
+\item{path}{Directory}
+
 \item{meta}{Metadata object (named list)}
 
 \item{type}{Cache type (set as `cache_type` field in `.cache_meta`)}
-
-\item{Path}{Directory}
 }
 \description{
 Read and write cache meta and type.

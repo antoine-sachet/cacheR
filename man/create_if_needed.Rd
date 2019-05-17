@@ -6,6 +6,13 @@
 \usage{
 create_if_needed(dir)
 }
+\arguments{
+\item{dir}{Directory to create}
+}
+\value{
+TRUE on success
+}
 \description{
-Create a directory if it does not already exist.
+Create the directory or does nothing it it already exists.
+Stops with an error if the directory creation fails.
 }

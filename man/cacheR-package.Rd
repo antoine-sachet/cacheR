@@ -11,6 +11,7 @@ I/O functions to read/write named lists to/from disk,
 }
 \examples{
 library("cacheR")
+path <- tempdir()
 
 my_data <-
   list(data = mtcars,
@@ -18,14 +19,14 @@ my_data <-
        details = list(date = "2030-01-01",
                       version = "1.2"))
 
-# Note the directory must exist
-write_cache(my_data, "./cache")
+write_cache(my_data, path)
 
-cache <- read_cache("./cache/my_data")
+cache <- read_cache(file.path(path, "my_data"))
 
 all.equal(my_data, cache)
 # TRUE, of course!
 
+unlink(path)
 }
 \seealso{
 \link{write_cache} \link{read_cache}

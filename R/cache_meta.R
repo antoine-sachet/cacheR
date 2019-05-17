@@ -1,6 +1,6 @@
 #' @title Read and write cache meta and type.
 #' @rdname cache_meta
-#' @param Path Directory
+#' @param path Directory
 get_cache_meta <- function(path) {
   yaml::read_yaml(file.path(path, ".cache_meta"))
 }
