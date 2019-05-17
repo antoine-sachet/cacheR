@@ -102,3 +102,15 @@ test_that("Logicals", {
   )
   check_all_inverses(objs)
 })
+
+test_that("Nested df and list-columns", {
+  objs <- list(
+    nested_df =
+      iris %>%
+      group_by(Species) %>%
+      nest() %>%
+      mutate(model = purrr::map(data, lm, formula = Sepal.Length ~ .))
+
+  )
+  check_all_inverses(objs)
+})

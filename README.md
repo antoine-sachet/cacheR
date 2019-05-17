@@ -43,3 +43,47 @@ cache <- read_cache("my_data", path = "./cache")
 all.equal(my_data, cache)
 # TRUE, of course!
 ```
+
+This is an example of data where cacheR really shines.
+
+You could not store easily as (mostly) plaintext without cacheR.
+
+```r
+# Let's build a nested data.frame with non-standard column types.
+
+library("cacheR")
+library("dplyr")
+library("tidyr")
+
+df <- iris %>%
+  group_by(Species) %>%
+  nest() %>%
+  mutate(model = purrr::map(data, lm, formula = Sepal.Length ~ .))
+  
+# Talk about a non-standard data.frame!
+df
+# # A tibble: 3 x 3
+#   Species    data              model   
+#   <fct>      <list>            <list>  
+# 1 setosa     <tibble [50 × 4]> <S3: lm>
+# 2 versicolor <tibble [50 × 4]> <S3: lm>
+# 3 virginica  <tibble [50 × 4]> <S3: lm>
+
+# Saving it in a temporary directory
+path <- tempdir()
+write_cache(df, path, name = "nested_iris")
+
+# You can have a look at all the files in the cache
+# Most of the data is stored in plaintext, with the exception of the `lm` models.
+inspect_cache(path)
+
+df_cached <- read_cache("nested_iris", path)
+
+# # A tibble: 3 x 3
+#   Species    data              model   
+# * <fct>      <list>            <list>  
+# 1 setosa     <tibble [50 × 4]> <S3: lm>
+# 2 versicolor <tibble [50 × 4]> <S3: lm>
+# 3 virginica  <tibble [50 × 4]> <S3: lm>
+```
+
