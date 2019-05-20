@@ -3,7 +3,12 @@ context("test-read_cache")
 check_inverse <- function(obj, path, name = "obj") {
   write_cache(obj, path, name = name, overwrite = TRUE)
   res <- read_cache(name, path)
-  testthat::expect_equal(obj, res)
+  if (is.data.frame(obj)) {
+    # Workaround to handle non standard lists
+    testthat::expect_true(all.equal.list(obj, res))
+  } else {
+    testthat::expect_equal(obj, res)
+  }
 }
 
 check_all_inverses <- function(objs) {
@@ -104,13 +109,13 @@ test_that("Logicals", {
 })
 
 test_that("Nested df and list-columns", {
+  expect_true(requireNamespace("tidyr", quietly = TRUE))
   objs <- list(
     nested_df =
       iris %>%
       group_by(Species) %>%
-      nest() %>%
+      tidyr::nest() %>%
       mutate(model = purrr::map(data, lm, formula = Sepal.Length ~ .))
-
   )
   check_all_inverses(objs)
 })

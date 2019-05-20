@@ -22,4 +22,5 @@ Imports:
     yaml,
     stringi
 Suggests: 
-    testthat
+    testthat,
+    tidyr
