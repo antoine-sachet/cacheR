@@ -1,7 +1,9 @@
 #' @title Plaintext reader and writer factories
 #' @rdname plaintext_factory
+#'
 #' @param type cache_type to write
 #' @param cast Optional cast function when reading or writing.
+#' @param cast_args Optional extra arguments to the cast function.
 plaintext_writer_factory <- function(type, cast = function(x) x,
                                      cast_args = list()) {
   function(x, path, ...) {

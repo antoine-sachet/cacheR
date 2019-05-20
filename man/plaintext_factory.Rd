@@ -5,8 +5,7 @@
 \alias{plaintext_reader_factory}
 \title{Plaintext reader and writer factories}
 \usage{
-plaintext_writer_factory(type, cast = function(x) x,
-  cast_args = list())
+plaintext_writer_factory(type, cast = function(x) x)
 
 plaintext_reader_factory(cast = function(x) x)
 }
