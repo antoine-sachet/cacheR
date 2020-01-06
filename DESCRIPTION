@@ -1,6 +1,6 @@
 Package: cacheR
 Title: git-friendly disk caching
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
     person(given = "Antoine",
            family = "Sachet",
