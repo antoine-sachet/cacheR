@@ -1,19 +1,34 @@
 context("test-read_cache")
 
+#' Check if 2 grouped tbl_df are equal
+all.equal.grouped_df <- function(x, y, ...) {
+  data_match <- all.equal.list(ungroup(x), ungroup(y))
+  gx <- attr(x, "groups")
+  gy <- attr(y, "groups")
+  group_match <- all.equal.list(gx, gy)
+
+  rlang::is_true(data_match) && rlang::is_true(group_match)
+}
+
 check_inverse <- function(obj, path, name = "obj") {
   write_cache(obj, path, name = name, overwrite = TRUE)
   res <- read_cache(name, path)
   if (is.data.frame(obj)) {
     # Workaround to handle non standard lists
-    testthat::expect_true(all.equal.list(obj, res))
+    equality_fun  <- if ("grouped_df" %in% class(obj)) all.equal.grouped_df else all.equal.list
+    testthat::expect_true(equality_fun(obj, res),
+                          label = glue("{name}: written and read objects should match"))
   } else {
-    testthat::expect_equal(obj, res)
+    # Not a data.frame
+    testthat::expect_equal(obj, res,
+                           label = glue("{name}: written and read objects should match"))
   }
 }
 
 check_all_inverses <- function(objs) {
   path <- tempdir()
-  teardown(unlink(path))
+  on.exit(unlink(path))
+
   if (is.null(names(objs))) {
     names(objs) <- paste("obj", 1:length(objs))
   }
