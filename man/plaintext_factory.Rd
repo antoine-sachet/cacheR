@@ -5,7 +5,8 @@
 \alias{plaintext_reader_factory}
 \title{Plaintext reader and writer factories}
 \usage{
-plaintext_writer_factory(type, cast = function(x) x)
+plaintext_writer_factory(type, cast = function(x) x,
+  cast_args = list())
 
 plaintext_reader_factory(cast = function(x) x)
 }
@@ -13,6 +14,8 @@ plaintext_reader_factory(cast = function(x) x)
 \item{type}{cache_type to write}
 
 \item{cast}{Optional cast function when reading or writing.}
+
+\item{cast_args}{Optional extra arguments to the cast function.}
 }
 \description{
 Plaintext reader and writer factories
