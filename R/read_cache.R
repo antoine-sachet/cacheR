@@ -1,3 +1,4 @@
+
 #' Read data previously saved with write_cache
 #'
 #' @param name Name of the object to read
@@ -6,6 +7,10 @@
 #' @seealso \link{write_cache}
 #' @export
 read_cache <- function(name, path) {
+  if (!rlang::is_string(name)) {
+    stop("`name` should be a string vector of length 1")
+  }
+
   path <- file.path(path, name)
   if (!file.exists(file.path(path, ".cache_meta"))) {
     stop(glue("Could not find .cache_meta in {path}. Is this the correct path?"))

@@ -134,3 +134,10 @@ test_that("Nested df and list-columns", {
   )
   check_all_inverses(objs)
 })
+
+test_that("read_cache should fail gracefully if an invalid name is passed", {
+  testthat::expect_error(cacheR::read_cache(1:3, tempdir()),
+                         regexp = "should be a string vector")
+  testthat::expect_error(cacheR::read_cache("non_existing_object", tempdir()),
+                         regexp = "Could not find")
+})
