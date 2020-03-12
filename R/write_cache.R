@@ -34,7 +34,7 @@ write_cache <- function(x, path, name = NULL, overwrite = FALSE, ...) {
       stop(glue("{object_root} already exists. Use overwrite = TRUE to overwrite."))
     } else {
       # Erasing existing dir!
-      unlink(path, recursive = TRUE)
+      unlink(object_root, recursive = TRUE)
     }
   }
   create_if_needed(object_root)
