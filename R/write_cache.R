@@ -89,7 +89,7 @@ write_cache_recursive.data.frame <- function(x, path, ...) {
   )
   set_cache_meta(path, meta)
   write_attributes(x, path, exclude = c("names", "class"))
-  x <- rlang::as_list(x)
+  attributes(x) <- NULL
   write_cache_recursive(x, file.path(path, "data"))
 }
 
