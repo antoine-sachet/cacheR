@@ -1,17 +1,15 @@
 Package: cacheR
-Title: git-friendly disk caching
-Version: 1.0.1
+Title: Save Data in Git-friendly Format
+Version: 1.0.2
 Authors@R: 
-    person(given = "Antoine",
-           family = "Sachet",
+    person("Antoine", "Sachet",
            role = c("aut", "cre"),
-           email = "antoine@soundout.com")
-Description: I/O functions to read/write named lists to/from disk, 
-  using cvs-friendly plaintext when possible.
+           email = "antoine.sac@gmail.com")
+Description: Read and write any R object to disk using plaintext as much as possible. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.0.9000
+RoxygenNote: 7.1.0
 Imports: 
     dplyr,
     tibble,

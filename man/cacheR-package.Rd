@@ -4,10 +4,9 @@
 \name{cacheR-package}
 \alias{cacheR}
 \alias{cacheR-package}
-\title{cacheR: git-friendly disk caching}
+\title{cacheR: Save Data in Git-friendly Format}
 \description{
-I/O functions to read/write named lists to/from disk, 
-  using cvs-friendly plaintext when possible.
+Read and write any R object to disk using plaintext as much as possible.
 }
 \examples{
 library("cacheR")
@@ -32,7 +31,7 @@ unlink(path)
 \link{write_cache} \link{read_cache}
 }
 \author{
-\strong{Maintainer}: Antoine Sachet \email{antoine@soundout.com}
+\strong{Maintainer}: Antoine Sachet \email{antoine.sac@gmail.com}
 
 }
 \keyword{internal}
