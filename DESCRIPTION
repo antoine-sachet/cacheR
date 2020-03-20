@@ -23,4 +23,5 @@ Imports:
     stringi
 Suggests: 
     testthat,
-    tidyr
+    tidyr,
+    data.tree

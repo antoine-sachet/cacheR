@@ -2,7 +2,7 @@
 % Please edit documentation in R/helpers.R
 \name{inspect_cache}
 \alias{inspect_cache}
-\title{Show all files in a cached object.}
+\title{Show all files in a stored object.}
 \usage{
 inspect_cache(path)
 }
@@ -10,6 +10,5 @@ inspect_cache(path)
 \item{path}{Path to a stored object.}
 }
 \description{
-A simple wrapper around list.files.
-Useful for debugging.
+A simple convenience function, useful for debugging.
 }
