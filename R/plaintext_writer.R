@@ -15,14 +15,15 @@ plaintext_writer <- function(type, cast = function(x) x,
     # Saving names in attributes rather than meta in case it is long
     write_attributes(x, path, exclude = "class")
     x_cast <- rlang::exec(cast, x, !!! cast_args)
-    readr::write_lines(x_cast, path = file.path(path, "object"))
+    readr::write_csv(data.frame(x = x_cast), path = file.path(path, "object"))
   }
 }
 
 #' @rdname plaintext_writer
 plaintext_reader <- function(cast = function(x) x) {
   function(path) {
-    out <- readr::read_lines(file.path(path, "object"))
+    out <- readr::read_csv(file.path(path, "object"),
+                           col_types = readr::cols(x = readr::col_character()))[["x"]]
     out <- cast(out)
     meta <- get_cache_meta(path)
     attributes(out) <- read_attributes(path)

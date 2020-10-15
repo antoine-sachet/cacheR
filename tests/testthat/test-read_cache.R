@@ -105,6 +105,14 @@ test_that("Characters", {
 })
 
 
+test_that("Characters with new line", {
+  objs <- list(
+    obj1 = "line1
+            line2"
+  )
+  check_all_inverses(objs)
+})
+
 test_that("Factors", {
   objs <- list(
     list(factor(letters)), # factor
