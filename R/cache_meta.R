@@ -16,9 +16,3 @@ get_cache_type <- function(path) {
 set_cache_meta <- function(path, meta) {
   yaml::write_yaml(meta, file.path(path, ".cache_meta"))
 }
-
-#' @rdname cache_meta
-#' @param type Cache type (set as `cache_type` field in `.cache_meta`)
-set_cache_type <- function(path, type) {
-  set_cache_meta(path, list(cache_type = type))
-}

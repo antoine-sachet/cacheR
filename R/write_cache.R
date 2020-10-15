@@ -56,7 +56,7 @@ write_cache_recursive <- function(x, path, ...) {
 
 #' @describeIn write_cache_recursive Default method (save as rds.gz)
 write_cache_recursive.default <- function(x, path, ...) {
-  set_cache_type(path, "rds.gz")
+  set_cache_meta(path, list(cache_type = "rds.gz"))
   readr::write_rds(x, file.path(path, "object"), compress = "gz")
 }
 
@@ -68,7 +68,7 @@ write_cache_recursive.list <- function(x, path, ...) {
     names = names(x)
   )
   set_cache_meta(path, meta)
-  write_attributes(x, path)
+  write_attributes(x, path, exclude = "names")
 
   len <- length(x)
   if (len > 0) {
