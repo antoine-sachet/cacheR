@@ -1,5 +1,7 @@
 # cacheR (in development)
 
+# cacheR 1.0.2
+
 * Removed dependency on deprecated `rlang` functions.
 
 * `inspect_cache` now prints a directory tree using `data.tree` package if available.
