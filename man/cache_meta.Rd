@@ -4,7 +4,7 @@
 \alias{get_cache_meta}
 \alias{get_cache_type}
 \alias{set_cache_meta}
-\alias{set_cache_type}
+\alias{update_cache_meta}
 \title{Read and write cache meta and type.}
 \usage{
 get_cache_meta(path)
@@ -13,14 +13,14 @@ get_cache_type(path)
 
 set_cache_meta(path, meta)
 
-set_cache_type(path, type)
+update_cache_meta(path, ...)
 }
 \arguments{
 \item{path}{Directory}
 
-\item{meta}{Metadata object (named list)}
+\item{meta}{Named list to write in metadata file}
 
-\item{type}{Cache type (set as `cache_type` field in `.cache_meta`)}
+\item{...}{Named arguments to be added in meta file}
 }
 \description{
 Read and write cache meta and type.
