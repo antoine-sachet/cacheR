@@ -2,18 +2,21 @@
 % Please edit documentation in R/cache_meta.R
 \name{get_cache_meta}
 \alias{get_cache_meta}
-\alias{get_cache_type}
 \alias{set_cache_meta}
 \alias{update_cache_meta}
+\alias{get_cache_type}
+\alias{get_cache_version}
 \title{Read and write cache meta and type.}
 \usage{
 get_cache_meta(path)
 
-get_cache_type(path)
-
 set_cache_meta(path, meta)
 
 update_cache_meta(path, ...)
+
+get_cache_type(path)
+
+get_cache_version(path)
 }
 \arguments{
 \item{path}{Directory}

@@ -6,12 +6,6 @@ get_cache_meta <- function(path) {
 }
 
 #' @rdname cache_meta
-get_cache_type <- function(path) {
-  meta <- get_cache_meta(path)
-  return(meta$cache_type)
-}
-
-#' @rdname cache_meta
 #' @param meta Named list to write in metadata file
 set_cache_meta <- function(path, meta) {
   yaml::write_yaml(meta, file.path(path, ".cache_meta"))
@@ -40,4 +34,24 @@ update_cache_meta <- function(path, ...) {
     merged <- merged[keys]
     set_cache_meta(path, merged)
   }
+}
+
+#' @rdname cache_meta
+get_cache_type <- function(path) {
+  meta <- get_cache_meta(path)
+  meta$cache_type
+}
+
+#' @rdname cache_meta
+get_cache_version <- function(path) {
+  meta <- get_cache_meta(path)
+  if ("version" %in% names(meta)) {
+    meta[["version"]]
+  } else "0.0.1"
+}
+
+#' Get current cacheR version
+#' @noRd
+current_version <- function() {
+  unname(getNamespaceVersion("cacheR"))
 }

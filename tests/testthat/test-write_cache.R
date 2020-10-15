@@ -38,3 +38,15 @@ test_that("write_cache returns data invisibly", {
   return_val <- write_cache(iris, path, name = "iris", overwrite = T)
   expect_equal(return_val, iris)
 })
+
+test_that("write_cache stores cache version in top level metadata", {
+  path <- tempdir()
+  teardown(unlink(path))
+
+  write_cache(iris, path, name = "iris", overwrite = T)
+  meta <- get_cache_meta(file.path(path, "iris"))
+  expect_true("version" %in% names(meta))
+  expect_true(rlang::is_scalar_character(meta[["version"]]))
+})
+
+

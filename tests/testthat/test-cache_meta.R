@@ -57,3 +57,22 @@ test_that("update_cache_meta follows given order", {
 })
 
 
+
+test_that("get_cache_version works", {
+  path <- tempdir(check = TRUE)
+  teardown(unlink(path))
+
+  write_cache(iris, path = path, name = "iris", overwrite = T)
+  expect_type(get_cache_version(file.path(path, "iris")), "character")
+  expect_match(get_cache_version(file.path(path, "iris")), "[0-9]+\\.[0-9]+.*")
+})
+
+test_that("get_cache_version works even with version attribute", {
+  path <- tempdir(check = TRUE)
+  teardown(unlink(path))
+
+  df <- iris
+  attr(df, "version") <- "plop"
+  write_cache(df, path = path, name = "iris", overwrite = T)
+  expect_match(get_cache_version(file.path(path, "iris")), "[0-9]+\\.[0-9]+.*")
+})

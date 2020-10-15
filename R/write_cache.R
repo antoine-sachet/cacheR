@@ -40,7 +40,8 @@ write_cache <- function(x, path, name = NULL, overwrite = FALSE, ...) {
   create_if_needed(object_root)
   # Starting recursive write
   write_cache_recursive(eval_tidy(xq), object_root, ...)
-
+  # Add cacheR version
+  update_cache_meta(object_root, version = current_version())
   invisible(x)
 }
 
