@@ -1,5 +1,10 @@
 # cacheR (in development)
 
+* The cache now logs the version of cacheR used to create it.
+
+* `write_cache` now returns the input data invisibly.
+
+
 # cacheR 1.0.2
 
 * Removed dependency on deprecated `rlang` functions.
