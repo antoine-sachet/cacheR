@@ -63,8 +63,12 @@ test_that("get_cache_version works", {
   teardown(unlink(path))
 
   write_cache(iris, path = path, name = "iris", overwrite = T)
-  expect_type(get_cache_version(file.path(path, "iris")), "character")
-  expect_match(get_cache_version(file.path(path, "iris")), "[0-9]+\\.[0-9]+.*")
+  ver <- get_cache_version(file.path(path, "iris"))
+  expect_type(ver, "character")
+  expect_match(ver, "[0-9]+\\.[0-9]+.*")
+
+  # cache_version was introduced in cacheR 1.0.2.9000 / 1.0.3
+  expect_true(ver > "1.0.2")
 })
 
 test_that("get_cache_version works even with version attribute", {

@@ -16,6 +16,15 @@ read_cache <- function(name, path) {
     stop(glue("Could not find .cache_meta in {path}. Is this the correct path?"))
   }
 
+  cache_version <- get_cache_version(object_root)
+  if (cache_version != current_version()) {
+    warn(glue("Cache was created with cacheR v{cache_version} ",
+              "but current cacheR install is v{current_version()}"))
+    if (cache_version <= "1.0.2") {
+      stop(glue("cacheR v{current_version()} cannot read this cache."))
+    }
+  }
+
   read_cache_recursive(name, path)
 }
 

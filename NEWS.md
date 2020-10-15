@@ -7,6 +7,10 @@ backward compatible!
 
 * The cache now logs the version of cacheR used to create it.
 
+* `read_cache` now gives a warning if the current version of cacheR is different
+than the one used to create the cache. Note version <= 1.0.2 is no longer
+supported as the plaintext format is different.
+
 * `write_cache` now returns the input data invisibly.
 
 

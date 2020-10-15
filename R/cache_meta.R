@@ -47,7 +47,7 @@ get_cache_version <- function(path) {
   meta <- get_cache_meta(path)
   if ("version" %in% names(meta)) {
     meta[["version"]]
-  } else "0.0.1"
+  } else "1.0.2" # last version without cache_version
 }
 
 #' Get current cacheR version
