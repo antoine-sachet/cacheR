@@ -1,5 +1,7 @@
 # cacheR (in development)
 
+# cacheR 1.1.0
+
 * Switched to `read/write_csv` as back-end for plaintext files. This is not
 backward compatible!
 
