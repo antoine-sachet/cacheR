@@ -4,7 +4,7 @@
 read_attributes <- function(path) {
   attr_path <- file.path(path, ".attributes")
   if (file.exists(attr_path)) {
-    out <- read_cache(".attributes", path = path)
+    out <- read_cache_recursive(".attributes", path = path)
   } else {
     out <- NULL
   }

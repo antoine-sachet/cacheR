@@ -11,26 +11,37 @@ read_cache <- function(name, path) {
     stop("`name` should be a string vector of length 1")
   }
 
-  path <- file.path(path, name)
-  if (!file.exists(file.path(path, ".cache_meta"))) {
+  object_root <- file.path(path, name)
+  if (!file.exists(file.path(object_root, ".cache_meta"))) {
     stop(glue("Could not find .cache_meta in {path}. Is this the correct path?"))
   }
-  type <- get_cache_type(path)
-  reader <- get(paste0("read_cache.", type), mode = "function")
-  reader(path)
+
+  read_cache_recursive(name, path)
 }
 
-#' @rdname read_cache_functions
-#' @title Internal read_cache functions.
-#' @description These functions are called by `read_cache` when appropriate.
-#' @param path Path (including object name)
+#' Internal read_cache functions.
+#'
+#' `read_cache_recursive` reads a cache without any checks. Always used internally.
+#' `read_cache` is the user-facing entry point, performing sense checks.
+#'
+#' @param name Name of sub-directory
+#' @param path Root path
 #' @seealso read_cache
-read_cache.rds.gz <- function(path) {
+#'
+#' @rdname read_cache_recursive
+read_cache_recursive <- function(name, path) {
+  object_root <- file.path(path, name)
+  type <- get_cache_type(object_root)
+  reader <- get(paste0("read_cache_recursive.", type), mode = "function")
+  reader(object_root)
+}
+
+read_cache_recursive.rds.gz <- function(path) {
   readr::read_rds(file.path(path, "object"))
 }
 
-#' @rdname read_cache_functions
-read_cache.list <- function(path) {
+#' @rdname read_cache_recursive
+read_cache_recursive.list <- function(path) {
   meta <- get_cache_meta(path)
 
   # Identifying all elements (in numbered directories)
@@ -40,16 +51,15 @@ read_cache.list <- function(path) {
     elems <- sort(elems)
   }
 
-  out <- purrr::map(elems,
-                    read_cache, path = path)
+  out <- purrr::map(elems, read_cache_recursive, path = path)
   attributes(out) <- read_attributes(path)
   names(out) <- meta$names
   out
 }
 
-#' @rdname read_cache_functions
-read_cache.data.frame <- function(path) {
-  out <- read_cache("data", path = path)
+#' @rdname read_cache_recursive
+read_cache_recursive.data.frame <- function(path) {
+  out <- read_cache_recursive("data", path = path)
   meta <- get_cache_meta(path)
   attributes(out) <- read_attributes(path)
   names(out) <- meta$names
@@ -57,23 +67,23 @@ read_cache.data.frame <- function(path) {
   out
 }
 
-#' @rdname read_cache_functions
-read_cache.character <-
+#' @rdname read_cache_recursive
+read_cache_recursive.character <-
   plaintext_reader(cast = readr::parse_character)
 
-#' @rdname read_cache_functions
-read_cache.factor <-
+#' @rdname read_cache_recursive
+read_cache_recursive.factor <-
   plaintext_reader(cast = readr::parse_integer)
 
-#' @rdname read_cache_functions
-read_cache.numeric <-
+#' @rdname read_cache_recursive
+read_cache_recursive.numeric <-
   plaintext_reader(cast = readr::parse_double)
 
-#' @rdname read_cache_functions
-read_cache.integer <-
+#' @rdname read_cache_recursive
+read_cache_recursive.integer <-
   plaintext_reader(cast = readr::parse_integer)
 
-#' @rdname read_cache_functions
-read_cache.logical <-
+#' @rdname read_cache_recursive
+read_cache_recursive.logical <-
   plaintext_reader(cast = purrr::compose(int2logical, readr::parse_integer))
 
