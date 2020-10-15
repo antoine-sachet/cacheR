@@ -22,7 +22,7 @@ read_cache <- function(name, path) {
 
 #' @rdname read_cache_functions
 #' @title Internal read_cache functions.
-#' @description This functions are called by `read_cache` when appropriate.
+#' @description These functions are called by `read_cache` when appropriate.
 #' @param path Path (including object name)
 #' @seealso read_cache
 read_cache.rds.gz <- function(path) {
@@ -35,6 +35,7 @@ read_cache.list <- function(path) {
 
   # Identifying all elements (in numbered directories)
   elems <- list.dirs(path, recursive = FALSE, full.names = FALSE)
+  elems <- elems[elems != ".attributes"]
   if (is.unsorted(elems)) {
     elems <- sort(elems)
   }

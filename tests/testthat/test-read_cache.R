@@ -55,6 +55,18 @@ test_that("List reader", {
   check_all_inverses(objs)
 })
 
+test_that("List with attributes", {
+  li1 <- li2 <- list(1, 2, 3)
+  attr(li1, "test") <- TRUE
+  attr(li2, "nested") <- li1
+
+  objs <- list(
+    li1 = li1,
+    li2 = li2
+  )
+  check_all_inverses(objs)
+})
+
 test_that("Data.frame reader", {
   objs <- list(
     obj1 = mtcars,
