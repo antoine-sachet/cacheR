@@ -31,7 +31,7 @@ read_cache.logical(path)
 \item{path}{Path (including object name)}
 }
 \description{
-This functions are called by `read_cache` when appropriate.
+These functions are called by `read_cache` when appropriate.
 }
 \seealso{
 read_cache

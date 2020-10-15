@@ -1,5 +1,5 @@
 #' @title Plaintext reader and writer
-#' @rdname plaintext_factory
+#' @rdname plaintext_writer
 #'
 #' @param type cache_type to write
 #' @param cast Optional cast function when reading or writing.
@@ -19,7 +19,7 @@ plaintext_writer <- function(type, cast = function(x) x,
   }
 }
 
-#' @rdname plaintext_factory
+#' @rdname plaintext_writer
 plaintext_reader <- function(cast = function(x) x) {
   function(path) {
     out <- readr::read_lines(file.path(path, "object"))
