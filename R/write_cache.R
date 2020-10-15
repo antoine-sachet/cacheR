@@ -11,11 +11,11 @@
 #' @export
 #'
 write_cache <- function(x, path, name = NULL, overwrite = FALSE, ...) {
-  x <- enquo(x)
+  xq <- enquo(x)
 
   # Checking name
   if (is.null(name)) {
-    name <- quo_text(x)
+    name <- quo_text(xq)
   } else {
     if (!is_string(name)) {
       stop("Name must be a single string.")
@@ -39,7 +39,9 @@ write_cache <- function(x, path, name = NULL, overwrite = FALSE, ...) {
   }
   create_if_needed(object_root)
   # Starting recursive write
-  write_cache_recursive(eval_tidy(x), object_root, ...)
+  write_cache_recursive(eval_tidy(xq), object_root, ...)
+
+  invisible(x)
 }
 
 #' @title Generic for write_cache_recursive
