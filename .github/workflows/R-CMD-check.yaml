@@ -62,19 +62,23 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
 
-      - name: Install system dependencies
+      - name: Install system dependencies on ubuntu 20.04
         if: matrix.os == 'ubuntu-20.04'
         run: |
           while read -r cmd
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "20.04"))')
+
+      - name: Install system dependencies on ubuntu 18.04
         if: matrix.os == 'ubuntu-18.04'
         run: |
           while read -r cmd
           do
             eval sudo $cmd
           done < <(Rscript -e 'writeLines(remotes::system_requirements("ubuntu", "18.04"))')
+
+      - name: Install system dependencies on ubuntu 16.04
         if: matrix.os == 'ubuntu-16.04'
         run: |
           while read -r cmd
