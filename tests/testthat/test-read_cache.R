@@ -1,28 +1,10 @@
 context("test-read_cache")
 
-#' Check if 2 grouped tbl_df are equal
-all.equal.grouped_df <- function(x, y, ...) {
-  data_match <- all.equal.list(ungroup(x), ungroup(y))
-  gx <- attr(x, "groups")
-  gy <- attr(y, "groups")
-  group_match <- all.equal.list(gx, gy)
-
-  rlang::is_true(data_match) && rlang::is_true(group_match)
-}
-
 check_inverse <- function(obj, path, name = "obj") {
   write_cache(obj, path, name = name, overwrite = TRUE)
   res <- read_cache(name, path)
-  if (is.data.frame(obj)) {
-    # Workaround to handle non standard lists
-    equality_fun  <- if ("grouped_df" %in% class(obj)) all.equal.grouped_df else all.equal.list
-    testthat::expect_true(equality_fun(obj, res),
-                          label = glue("{name}: written and read objects should match"))
-  } else {
-    # Not a data.frame
-    testthat::expect_equal(obj, res,
-                           label = glue("{name}: written and read objects should match"))
-  }
+  testthat::expect_equal(obj, res,
+                         label = glue("{name}: written and read objects should match"))
 }
 
 check_all_inverses <- function(objs) {
@@ -69,16 +51,49 @@ test_that("List with attributes", {
 
 test_that("Data.frame reader", {
   objs <- list(
-    obj1 = mtcars,
-    obj2 = iris,
-    obj3 = tibble::as_tibble(iris),
-    obj4 = data.frame(),
-    obj5 = data.frame(a = character(0)),
-    obj6 = tibble::tibble(),
-    obj7 = dplyr::group_by(iris, Species),
-    obj8 = dplyr::mutate(iris, Species = factor(Species))
+    mtcars = mtcars,
+    iris = iris,
+    iris_tbl = tibble::as_tibble(iris),
+    df_empty1 = data.frame(),
+    df_empty2 = data.frame(a = character(0)),
+    df_empty3 = data.frame(a = character(0), b = numeric(0), c = integer(0)),
+    tbl_empty1 = tibble::tibble(),
+    tbl_empty2 = tibble::tibble(a = character(0), b = numeric(0), c = integer(0)),
+    df_grouped = dplyr::group_by(iris, Species),
+    iris_fac = dplyr::mutate(iris, Species = factor(Species))
   )
   check_all_inverses(objs)
+})
+
+test_that("read_cache handles all data types", {
+  list_all_types  <- list(
+    char = letters,
+    int  = 1:26,
+    num  = 1:26 + 0.5,
+    num2 = 1:26 + pi,
+    lgl  = sample(c(TRUE, FALSE), 26, replace = TRUE),
+    cplx = 1:26 + 1i,
+    cplx2 = 1:26 + pi + pi * 1i,
+    raw  = purrr::map_raw(letters, charToRaw),
+    expr = lapply(letters,
+                  function(letter) substitute(expression(x), list(x = letter))),
+    sym  = rlang::syms(letters),
+    null = purrr::map(letters, ~ NULL),
+    fct  = purrr::map(letters, ~ function() .x),
+    builtin = purrr::map(letters, ~ `c`),
+    env  = purrr::map(letters, ~ as.environment(list(x = .x))),
+    list = purrr::map(letters, list)
+  )
+
+  tbl_all_types <- tibble::as_tibble(list_all_types)
+
+  objs <- list(
+    list_all_types = list_all_types,
+    tbl_all_types = tbl_all_types
+  )
+
+  check_all_inverses(objs)
+
 })
 
 test_that("Nested lists", {
