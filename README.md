@@ -1,5 +1,10 @@
 # cacheR
 
+<!-- badges: start -->
+  [![Travis build status](https://travis-ci.org/antoine-sachet/cacheR.svg?branch=master)](https://travis-ci.org/antoine-sachet/cacheR)
+  [![Codecov test coverage](https://codecov.io/gh/antoine-sachet/cacheR/branch/master/graph/badge.svg)](https://codecov.io/gh/antoine-sachet/cacheR?branch=master)
+<!-- badges: end -->
+
 The goal of cacheR is to provide I/O functions to save data in named lists to disk in a robust and git-friendly way.
 
 When I deploy shiny apps, I typically need to deploy some data along with it.
