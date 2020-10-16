@@ -9,6 +9,7 @@
 \alias{read_cache_recursive.numeric}
 \alias{read_cache_recursive.integer}
 \alias{read_cache_recursive.logical}
+\alias{read_cache_recursive.complex}
 \title{Internal read_cache functions.}
 \usage{
 read_cache_recursive(name, path)
@@ -26,6 +27,8 @@ read_cache_recursive.numeric(path)
 read_cache_recursive.integer(path)
 
 read_cache_recursive.logical(path)
+
+read_cache_recursive.complex(path)
 }
 \arguments{
 \item{name}{Name of sub-directory}

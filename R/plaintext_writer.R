@@ -4,8 +4,9 @@
 #' @param type cache_type to write
 #' @param cast Optional cast function when reading or writing.
 #' @param cast_args Optional extra arguments to the cast function.
-plaintext_writer <- function(type, cast = function(x) x,
-                                     cast_args = list()) {
+plaintext_writer <- function(type,
+                             cast = function(x) x,
+                             cast_args = list()) {
   function(x, path, ...) {
     meta <- list(
       cache_type = type,

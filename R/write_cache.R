@@ -109,10 +109,14 @@ write_cache_recursive.factor <-
 write_cache_recursive.numeric <-
   plaintext_writer(type = "numeric")
 
-#' @describeIn write_cache_recursive Numeric method (plaintext)
+#' @describeIn write_cache_recursive Integer method (plaintext)
 write_cache_recursive.integer <-
   plaintext_writer(type = "integer")
 
-#' @describeIn write_cache_recursive Numeric method (plaintext)
+#' @describeIn write_cache_recursive Logical method (plaintext)
 write_cache_recursive.logical <-
   plaintext_writer(type = "integer", cast = logical2int)
+
+#' @describeIn write_cache_recursive Complex method (plaintext)
+write_cache_recursive.complex <-
+  plaintext_writer(type = "complex", cast = as.character)

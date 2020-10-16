@@ -78,21 +78,25 @@ read_cache_recursive.data.frame <- function(path) {
 
 #' @rdname read_cache_recursive
 read_cache_recursive.character <-
-  plaintext_reader(cast = readr::parse_character)
+  plaintext_reader(cast = as.character)
 
 #' @rdname read_cache_recursive
 read_cache_recursive.factor <-
-  plaintext_reader(cast = readr::parse_integer)
+  plaintext_reader(cast = as.integer)
 
 #' @rdname read_cache_recursive
 read_cache_recursive.numeric <-
-  plaintext_reader(cast = readr::parse_double)
+  plaintext_reader(cast = as.numeric)
 
 #' @rdname read_cache_recursive
 read_cache_recursive.integer <-
-  plaintext_reader(cast = readr::parse_integer)
+  plaintext_reader(cast = as.integer)
 
 #' @rdname read_cache_recursive
 read_cache_recursive.logical <-
-  plaintext_reader(cast = purrr::compose(int2logical, readr::parse_integer))
+  plaintext_reader(cast = purrr::compose(int2logical, as.integer))
+
+#' @rdname read_cache_recursive
+read_cache_recursive.complex <-
+  plaintext_reader(cast = as.complex)
 

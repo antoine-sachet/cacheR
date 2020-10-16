@@ -10,6 +10,7 @@
 \alias{write_cache_recursive.numeric}
 \alias{write_cache_recursive.integer}
 \alias{write_cache_recursive.logical}
+\alias{write_cache_recursive.complex}
 \title{Generic for write_cache_recursive}
 \usage{
 write_cache_recursive(x, path, ...)
@@ -29,6 +30,8 @@ write_cache_recursive(x, path, ...)
 \method{write_cache_recursive}{integer}(x, path, ...)
 
 \method{write_cache_recursive}{logical}(x, path, ...)
+
+\method{write_cache_recursive}{complex}(x, path, ...)
 }
 \arguments{
 \item{x}{An object to write}
@@ -54,8 +57,10 @@ Internal workhorse for write_cache.
 
 \item \code{numeric}: Numeric method (plaintext)
 
-\item \code{integer}: Numeric method (plaintext)
+\item \code{integer}: Integer method (plaintext)
 
-\item \code{logical}: Numeric method (plaintext)
+\item \code{logical}: Logical method (plaintext)
+
+\item \code{complex}: Complex method (plaintext)
 }}
 
