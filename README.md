@@ -3,6 +3,7 @@
 <!-- badges: start -->
 [![R build status](https://github.com/antoine-sachet/cacheR/workflows/R-CMD-check/badge.svg)](https://github.com/antoine-sachet/cacheR/actions)
 [![Codecov test coverage](https://codecov.io/gh/antoine-sachet/cacheR/branch/master/graph/badge.svg)](https://codecov.io/gh/antoine-sachet/cacheR?branch=master)
+[![R build status - devel](https://github.com/antoine-sachet/cacheR/workflows/R-CMD-check-devel/badge.svg)](https://github.com/antoine-sachet/cacheR/actions)
 <!-- badges: end -->
 
 The goal of cacheR is to provide I/O functions to save data in named lists to disk in a robust and git-friendly way.
