@@ -49,4 +49,24 @@ test_that("write_cache stores cache version in top level metadata", {
   expect_true(rlang::is_scalar_character(meta[["version"]]))
 })
 
+test_that("write_cache fails on invalid name", {
+  path <- tempdir()
+  teardown(unlink(path))
+
+  expect_error(write_cache(iris, path, name = 123),
+               "string")
+
+  expect_error(write_cache(iris, path, name = c("a", "b")),
+               "string")
+
+})
+
+test_that("write_cache fails on non existing path", {
+  path <- tempdir()
+  teardown(unlink(path))
+
+  expect_error(write_cache(iris, file.path(path, "qwerty123")),
+               "directory does not exist")
+
+})
 

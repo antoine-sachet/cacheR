@@ -176,3 +176,31 @@ test_that("read_cache should fail gracefully if an invalid name is passed", {
   testthat::expect_error(cacheR::read_cache("non_existing_object", tempdir()),
                          regexp = "Could not find")
 })
+
+test_that("read_cache should fail to read cache with no version", {
+  path <- tempdir()
+  teardown(unlink(path))
+
+  # Simulate a cache with no version
+  write_cache(iris, path, overwrite = TRUE)
+  cache_meta <- get_cache_meta(file.path(path, "iris"))
+  cache_meta$version <- NULL
+  set_cache_meta(file.path(path, "iris"), cache_meta)
+
+  testthat::expect_error(cacheR::read_cache("iris", path),
+                         regexp = "version")
+})
+
+test_that("read_cache should warn on version mismatch", {
+  path <- tempdir()
+  teardown(unlink(path))
+
+  # Simulate a cache with no version
+  write_cache(iris, path, overwrite = TRUE)
+  cache_meta <- get_cache_meta(file.path(path, "iris"))
+  cache_meta$version <- "1.0.5"
+  set_cache_meta(file.path(path, "iris"), cache_meta)
+
+  testthat::expect_warning(cacheR::read_cache("iris", path),
+                           regexp = "version")
+})

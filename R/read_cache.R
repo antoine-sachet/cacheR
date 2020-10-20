@@ -17,12 +17,11 @@ read_cache <- function(name, path) {
   }
 
   cache_version <- get_cache_version(object_root)
-  if (cache_version != current_version()) {
-    warn(glue("Cache was created with cacheR v{cache_version} ",
-              "but current cacheR install is v{current_version()}"))
-    if (cache_version <= "1.0.2") {
-      stop(glue("cacheR v{current_version()} cannot read this cache."))
-    }
+  if (cache_version <= "1.0.2") {
+    stop(glue("cacheR version {current_version()} cannot read this old cache."))
+  } else if (cache_version != current_version()) {
+    warn(glue("Cache was created with cacheR version {cache_version} ",
+              "but current cacheR install is version {current_version()}"))
   }
 
   read_cache_recursive(name, path)
