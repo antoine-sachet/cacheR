@@ -1,4 +1,4 @@
-# cacheR (in development)
+# cacheR 1.2.0
 
 * Renamed internal files created by `write_cache` to avoid hidden files and
 directories. They were causing notes in R CMD check when present in a package.
