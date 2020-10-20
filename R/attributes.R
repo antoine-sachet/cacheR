@@ -2,9 +2,9 @@
 #' @title  Read and write attributes
 #' @param path Directory
 read_attributes <- function(path) {
-  attr_path <- file.path(path, ".attributes")
+  attr_path <- file.path(path, "attr")
   if (file.exists(attr_path)) {
-    out <- read_cache_recursive(".attributes", path = path)
+    out <- read_cache_recursive("attr", path = path)
   } else {
     out <- NULL
   }
@@ -22,7 +22,7 @@ write_attributes <- function(x, path, exclude = c("names")) {
       att <- att[!names(att) %in% exclude]
     }
     if (length(att) > 0) {
-      write_cache_recursive(att, file.path(path, ".attributes"))
+      write_cache_recursive(att, file.path(path, "attr"))
     }
   }
 }

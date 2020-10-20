@@ -1,5 +1,9 @@
 # cacheR (in development)
 
+* Renamed internal files created by `write_cache` to avoid hidden files and
+directories. They were causing notes in R CMD check when present in a package.
+This is not backward compatible (although it could easily be if needed).
+
 * Atomic vectors of type 'complex' are now saved in plaintext.
 
 * Updated calls to `readr` functions following the renaming of their `path` argument.

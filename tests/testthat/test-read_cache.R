@@ -174,7 +174,7 @@ test_that("read_cache should fail gracefully if an invalid name is passed", {
   testthat::expect_error(cacheR::read_cache(1:3, tempdir()),
                          regexp = "should be a string vector")
   testthat::expect_error(cacheR::read_cache("non_existing_object", tempdir()),
-                         regexp = "Could not find")
+                         regexp = "does not look like a cached object")
 })
 
 test_that("read_cache should fail to read cache with no version", {
@@ -198,7 +198,7 @@ test_that("read_cache should warn on version mismatch", {
   # Simulate a cache with no version
   write_cache(iris, path, overwrite = TRUE)
   cache_meta <- get_cache_meta(file.path(path, "iris"))
-  cache_meta$version <- "1.0.5"
+  cache_meta$version <- "9.9.9"
   set_cache_meta(file.path(path, "iris"), cache_meta)
 
   testthat::expect_warning(cacheR::read_cache("iris", path),

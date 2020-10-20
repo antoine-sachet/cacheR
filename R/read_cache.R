@@ -1,4 +1,3 @@
-
 #' Read data previously saved with write_cache
 #'
 #' @param name Name of the object to read
@@ -12,12 +11,12 @@ read_cache <- function(name, path) {
   }
 
   object_root <- file.path(path, name)
-  if (!file.exists(file.path(object_root, ".cache_meta"))) {
-    stop(glue("Could not find .cache_meta in {path}. Is this the correct path?"))
+  if (!is_cached_object(object_root)) {
+    stop(glue("This does not look like a cached object: {object_root}"))
   }
 
   cache_version <- get_cache_version(object_root)
-  if (cache_version <= "1.0.2") {
+  if (cache_version <= "1.1.0") {
     stop(glue("cacheR version {current_version()} cannot read this old cache."))
   } else if (cache_version != current_version()) {
     warn(glue("Cache was created with cacheR version {cache_version} ",
@@ -54,7 +53,7 @@ read_cache_recursive.list <- function(path) {
 
   # Identifying all elements (in numbered directories)
   elems <- list.dirs(path, recursive = FALSE, full.names = FALSE)
-  elems <- elems[elems != ".attributes"]
+  elems <- elems[elems != "attr"]
   if (is.unsorted(elems)) {
     elems <- sort(elems)
   }
