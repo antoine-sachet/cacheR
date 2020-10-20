@@ -2,6 +2,12 @@
 
 * Atomic vectors of type 'complex' are now saved in plaintext.
 
+* Updated calls to `readr` functions following the renaming of their `path` argument.
+
+* Improved tests in both depth and coverage
+
+* Added CI checks and code coverage reports
+
 # cacheR 1.1.0
 
 * Switched to `read/write_csv` as back-end for plaintext files. This is not
