@@ -1,5 +1,7 @@
 # cacheR (in development)
 
+* Now using stricter arguments when using `read_csv` to ensure we read exactly what was written.
+
 # cacheR 1.2.0
 
 * Renamed internal files created by `write_cache` to avoid hidden files and

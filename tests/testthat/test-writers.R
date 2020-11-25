@@ -95,3 +95,15 @@ test_that("Data.frame method", {
 
   check_objs(objs, expected_content)
 })
+
+test_that("Character method", {
+  expected_content <- c("cache_meta",
+                        "object")
+
+  objs <- list(str1 = "Hello",
+               str2 = c("Hello", "Bye"),
+               str3 = c("Hello", "Bye", ""),
+               empty_str = character(0))
+
+  check_objs(objs, expected_content)
+})

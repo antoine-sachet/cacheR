@@ -204,3 +204,13 @@ test_that("read_cache should warn on version mismatch", {
   testthat::expect_warning(cacheR::read_cache("iris", path),
                            regexp = "version")
 })
+
+test_that("Character vector with empty strings", {
+  objs <- list(
+    str1 = c("hello", "", "", "bye"),
+    df1 = tibble::tibble(str = c("hello", "", "")),
+    df2 = tibble::tibble(str = c("", "", "bye")),
+    df3 = tibble::tibble(str = c("hello", "", "bye"))
+  )
+  check_all_inverses(objs)
+})
