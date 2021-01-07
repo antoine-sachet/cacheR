@@ -1,4 +1,4 @@
-# cacheR (in development)
+# cacheR 1.2.1
 
 * Now using stricter arguments when using `read_csv` to ensure we read exactly what was written.
 
